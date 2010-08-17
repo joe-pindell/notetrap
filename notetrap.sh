@@ -62,16 +62,63 @@ print() {
 
 usage() {
 	# print usage
-	echo "Print usage statement"
+	cat << EOT
+  Notetrap
+  ========
+
+  Notetrap is a simple command line note taking application implemented 
+  as a shell script. Each note entered on the command line is appended 
+  with a date, time, current timetrap timesheet (t now), and filed 
+  away 
+  into the daily note file. The script also contains some utility 
+  functions to list, edit, and search through the notefiles.
+
+  All the note files are stored in the /usr/notes directory unless 
+  otherwise modified. 
+
+  This is the result of inspiration drawn largely from Lifehacker posts 
+  about managing life through text files. It's name is a 
+  nod to timetrap http://github.com/samg/timetrap by samg.
+
+  Usage
+  -------
+  Call notetrap by executing the shell script with one of the following 
+  parameters:
+  
+  "a note" this writes the note into a daily note file.
+	notetrap.sh "I just read a really interesting article"
+
+  -e [notefilename] opens notefilename in editor. The default 
+	notefilename is the current day. The file extension is .txt and 
+	not needed as part of the parameter.
+	notetrap.sh -e
+	notetrap.sh -e Notefile
+
+  -h display the usage text
+
+  -l lists all the note files (most recent is last)
+
+  -p [notefilename] prints the contents of notefilename to the screen. 
+	If no notefilename is specified, then the current daily note 
+	file is used.
+	notetrap.sh -p
+	notetrap.sh -p 2010-08-12
+
+  -s search the note files for text 
+
+  As a shortcut, alias "n" to notetrap.sh in your profile. 
+
+EOT
 }
 
 # parameter evaluation
 case $1 in
-	-e) edit $2;;
-	-l) list;;
-	-s) search $2;;
-	-p) print $2;;
 	-a) append $2;;
+	-e) edit $2;;
+	-h) usage;;
+	-l) list;;
+	-p) print $2;;
+	-s) search $2;;
 	-*) usage;;
 	*)  add $1;;
 esac
