@@ -3,10 +3,12 @@ note_dir=~/notes
 note_date=$(date +"%Y-%m-%d")
 note_file=$note_date.txt
 note_time=$(date +"%r")
+timesheet=$(t r | sed '1d;s/^[ \t]*//')
 
 add() {
 	# add a new note
-	echo "$note_date: $note_time: $(t n): $*" >> $note_dir/$note_file
+	#echo "$note_date: $note_time: $(t n): $*" >> $note_dir/$note_file
+	echo "$note_date: $note_time: $timesheet: $*" >> $note_dir/$note_file
 }
 
 append() {
@@ -55,7 +57,7 @@ print() {
 		echo $msg
 		cat $a_file
 	else
-		echo "The note file '$a_file' does not exist."
+		echo "No notes for '$*'."
 	fi
 	echo
 }
